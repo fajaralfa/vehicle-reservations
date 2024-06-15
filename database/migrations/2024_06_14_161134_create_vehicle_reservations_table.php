@@ -19,12 +19,12 @@ return new class extends Migration
             $table->unsignedBigInteger('orderer_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->boolean('is_approved')->nullable();
-            $table->timestamp('approved_date');
+            $table->timestamp('approved_date')->nullable();
             $table->timestamps();
             $table->foreign('vehicle_driver_id')->on('vehicle_drivers')->references('id');
             $table->foreign('admin_id')->on('admins')->references('id');
-            $table->foreign('approver_id')->on('approvers')->references('id');
-            $table->foreign('orderer_id')->on('orderers')->references('id');
+            $table->foreign('approver_id')->on('employees')->references('id');
+            $table->foreign('orderer_id')->on('employees')->references('id');
             $table->foreign('vehicle_id')->on('vehicles')->references('id');
         });
     }
