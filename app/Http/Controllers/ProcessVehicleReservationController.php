@@ -14,7 +14,10 @@ class ProcessVehicleReservationController extends Controller
      */
     public function index()
     {
-        $vehicleReservations = VehicleReservation::all();
+        $vehicleReservations = VehicleReservation::
+            orderBy('is_approved')
+            ->orderBy('approved_date')
+            ->get();
 
         return view('admin.vehicle-reservation.index', [
             'vehicleReservations' => $vehicleReservations,

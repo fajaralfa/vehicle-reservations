@@ -13,7 +13,10 @@ class RequestVehicleReservation extends Controller
      */
     public function index()
     {
-        $vehicleReservations = VehicleReservation::where('orderer_id', auth('employee')->user()->id)->get();
+        $vehicleReservations = VehicleReservation::
+            where('orderer_id', auth('employee')->user()->id)
+            ->orderBy('is_approved')
+            ->get();
 
         return view('employee.vehicle-reservation.index', [
             'vehicleReservations' => $vehicleReservations,

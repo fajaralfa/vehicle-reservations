@@ -11,8 +11,8 @@ class ApproveVehicleReservation extends Controller
     {
         $vehicle_approvals = VehicleReservation::
             where('approver_id', auth('employee')->user()->id)
-            ->latest()
             ->orderBy('is_approved')
+            ->latest()
             ->get();
 
         return view('employee.vehicle-approval.index', [
