@@ -1,58 +1,48 @@
 @include('partial.head', ['title' => 'Vehicle Approval Detail'])
-@include('partial.sidebar')
+@include('partial.sidebar-em')
 
 <x-main-container>
-    <div id="reservation-data" class="list-group">
-        <div class="list-group-item fw-bold">Orderer</div>
+    <a href="/admin/vehicle-reservations">Kembali</a>
+    <h1 class="fs-2 text-center">Rincian Pemesanan Kendaraan</h1>
+    
+    <div id="reservation-data" class="list-group p-4">
+        <div class="list-group-item fw-bold">Perizinan</div>
         <div class="list-group-item">
             <div>
-                <span>Name</span>
+                <span>Status Perizinan</span>
+                <span>{{ match ($vehicleReservation->is_approved) {0 => 'tidak',1 => '',null => 'Menunggu'} }}
+                    Diizinkan</span>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div>
+                <span>Tanggal Keputusan</span>
+                <span>{{ $vehicleReservation->approved_date ?? 'Menunggu' }}</span>
+            </div>
+        </div>
+        <div class="list-group-item fw-bold">Pemesan</div>
+        <div class="list-group-item">
+            <div>
+                <span>Nama</span>
                 <span>{{ $vehicleReservation->orderer->name }}</span>
             </div>
         </div>
         <div class="list-group-item">
             <div>
-                <span>Position</span>
+                <span>Jabatan</span>
                 <span>{{ $vehicleReservation->orderer->level }}</span>
             </div>
         </div>
-        <div class="list-group-item fw-bold">Approver</div>
+        <div class="list-group-item fw-bold">Kendaraan</div>
         <div class="list-group-item">
             <div>
-                <span>Name</span>
-                <span>{{ $vehicleReservation->approver?->name }}</span>
-            </div>
-        </div>
-        <div class="list-group-item">
-            <div>
-                <span>Position</span>
-                <span>{{ $vehicleReservation->approver?->level }}</span>
-            </div>
-        </div>
-        <div class="list-group-item fw-bold">Admin</div>
-        <div class="list-group-item">
-            <div>
-                <span>Username</span>
-                <span>{{ $vehicleReservation->admin?->username }}</span>
-            </div>
-        </div>
-        <div class="list-group-item fw-bold">Driver</div>
-        <div class="list-group-item">
-            <div>
-                <span>Name</span>
-                <span>{{ $vehicleReservation->vehicleDriver?->name }}</span>
-            </div>
-        </div>
-        <div class="list-group-item fw-bold">Vehicle</div>
-        <div class="list-group-item">
-            <div>
-                <span>Code</span>
+                <span>Kode Kendaraan</span>
                 <span>{{ $vehicleReservation->vehicle->item_code }}</span>
             </div>
         </div>
         <div class="list-group-item">
             <div>
-                <span>Brand</span>
+                <span>Merek</span>
                 <span>{{ $vehicleReservation->vehicle->brand }}</span>
             </div>
         </div>
@@ -62,32 +52,67 @@
                 <span>{{ $vehicleReservation->vehicle->model }}</span>
             </div>
         </div>
-        <div class="list-group-item fw-bold">Approval</div>
-        <div class="list-group-item">
+        <div class="list-group-item fw-bold">
             <div>
-                <span>Approved</span>
-                <span>{{ match($vehicleReservation->is_approved) { 0 => 'no', 1 => 'yes', null => 'pending' } }}</span>
+                <span>Pemberi Izin</span>
+                @if ($vehicleReservation->approver === null) <span>Belum Ditentukan</span> @endif
             </div>
         </div>
-        @if ($vehicleReservation->approved_date)
+        @if ($vehicleReservation->approver !== null)
         <div class="list-group-item">
             <div>
-                <span>Approval Date</span>
-                <span>{{ $vehicleReservation->approved_date ?? 'waiting' }}</span>
+                <span>Nama</span>
+                <span>{{ $vehicleReservation->approver?->name }}</span>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div>
+                <span>Jabatan</span>
+                <span>{{ $vehicleReservation->approver?->level }}</span>
+            </div>
+        </div>
+        @endif
+        <div class="list-group-item fw-bold">
+            <div>
+                <span>Admin Pemroses</span>
+                @if ($vehicleReservation->admin === null) <span>Belum Ditentukan</span> @endif
+            </div>
+        </div>
+        @if ($vehicleReservation->admin !== null)
+        <div class="list-group-item">
+            <div>
+                <span>Username</span>
+                <span>{{ $vehicleReservation->admin?->username }}</span>
+            </div>
+        </div>
+        @endif
+        <div class="list-group-item fw-bold">
+            <div>
+                <span>Pengemudi</span>
+                @if ($vehicleReservation->vehicleDriver === null) <span>Belum Ditentukan</span> @endif
+            </div>
+        </div>
+        @if ($vehicleReservation->vehicleDriver !== null)
+        <div class="list-group-item">
+            <div>
+                <span>Nama</span>
+                <span>{{ $vehicleReservation->vehicleDriver?->name }}</span>
             </div>
         </div>
         @endif
         @if ($vehicleReservation->is_approved === null)
+        <div class="d-flex gap-3 p-3 justify-content-center">
             <form action="/employee/vehicle-approval/{{ $vehicleReservation->id }}/approve" method="post">
                 @csrf
                 <input type="hidden" name="answer" value="1">
-                <button type="submit" class="btn btn-primary">APPROVE</button>
+                <button type="submit" class="btn btn-primary">Izinkan</button>
             </form>
             <form action="/employee/vehicle-approval/{{ $vehicleReservation->id }}/approve" method="post">
                 @csrf
                 <input type="hidden" name="answer" value="0">
-                <button type="submit" class="btn btn-primary">REJECT</button>
+                <button type="submit" class="btn btn-danger">Tolak</button>
             </form>
+        </div>
         @endif
     </div>
 </x-main-container>
