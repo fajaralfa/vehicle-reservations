@@ -1,8 +1,8 @@
 @php
     $navLinks = [
         '/admin' => 'Dashboard',
-        '/admin/vehicle-reservations' => 'Vehicle Order',
-        '/admin/vehicle-usages' => 'Vehicle Usage',
+        '/admin/vehicle-reservations' => 'Pemesanan Kendaraan',
+        '/admin/vehicle-usages' => 'Penggunaan Kendaraan',
     ];
 @endphp
 
@@ -11,7 +11,7 @@
     @foreach ($navLinks as $link => $label)
         <a href="{{ $link }}" @class(["btn btn-primary text-start rounded-0", "active" => false])>{{ $label }}</a>
     @endforeach
-    <form action="/admin/logout" method="post">@csrf
-        <button type="submit" class="btn btn-primary text-start rounded-0 w-100">Logout</button>
+    <form action="/admin/logout" method="post" class="position-absolute bottom-0 w-100">@csrf
+        <button type="submit" class="btn btn-primary text-start rounded-0 w-100">Keluar</button>
     </form>
 </div>
