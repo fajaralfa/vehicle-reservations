@@ -41,6 +41,7 @@
     - ubah konfigurasi database sesuai yang diinginkan
 - jalankan:
 ```bash
+php artisan key:generate # buat secret key
 php artisan migrate # buat tabel - tabel database
 php artisan db:seed # tambahkan data - data contoh 
 php artisan serve # jalankan server development
