@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('vehicle_reservations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('vehicle_driver_id');
-            $table->unsignedBigInteger('admin_id');
-            $table->unsignedBigInteger('approver_id');
+            $table->unsignedBigInteger('vehicle_driver_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('approver_id')->nullable();
             $table->unsignedBigInteger('orderer_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->boolean('is_approved')->nullable();
