@@ -10,14 +10,35 @@
 - terdapat dashboard yang menampilkan grafik pemakaian kendaraan
 - terdapat laporan periodik pemesanan kendaraan yang dapat di export
 
-### entity ✅
-- admin (data admin)
-- approver (data penyetuju)
-- driver (data pengemudi)
-- vehicle (data kendaraan)
+# ROADMAP
+- database design, migration, model, seeder  ✅
+- autentikasi admin, employee ✅
+- pemesanan kendaraan (employee) ✅
+- pemrosesan pemesanan kendaraan (admin) ✅
+- persetujuan pemesanan kendaraan (employee dengan jabatan dua tingkat diatas pemesan kendaraan) ✅
+- laporan penggunaan oleh pemesan kendaraan
+- statistik penggunaan kendaraan (admin)
 
-weak
-- vehicle_rented (data kendaraan yang disewa)
-- vehicle_approval (data persetujuan pemesanan kendaraan)
-- vehicle_usage (data penggunaan kendaraan)
-- vehicle_service (data service kendaraan)
+## USER TESTING (seeder)
+
+### admin
+
+- username  :admin
+- password  :admin
+
+### employee
+
+entry
+
+- username  :alfarizi
+- password  :rahasia
+
+intermediate
+
+- username  :ilham
+- password  :rahasia
+
+lower_management
+
+- username  :fajar
+- password  :rahasia
