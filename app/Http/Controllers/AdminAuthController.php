@@ -16,12 +16,12 @@ class AdminAuthController extends Controller
             return redirect('/admin');
         }
 
-        return redirect('/admin/login')->withErrors(['username' => 'username atau password salah']);
+        return redirect('/login')->withErrors(['username' => 'username atau password salah']);
     }
 
     public function logout()
     {
         auth()->logout();
-        return redirect('/admin/login');
+        return redirect('/login');
     }
 }

@@ -18,12 +18,12 @@ class EmployeeAuthController extends Controller
             return redirect('/employee');
         }
 
-        return redirect('/employee/login')->withErrors(['username' => 'username atau password salah']);
+        return redirect('/login')->withErrors(['username' => 'username atau password salah']);
     }
 
     public function logout()
     {
         auth()->logout();
-        return redirect('/employee/login');
+        return redirect('/login');
     }
 }
