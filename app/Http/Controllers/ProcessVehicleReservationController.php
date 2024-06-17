@@ -57,6 +57,14 @@ class ProcessVehicleReservationController extends Controller
 
     public function process(Request $request, string $id)
     {
-        //
+        $payload = request()->validate(['vehicle_driver_id' => 'numeric', 'approver_id' => 'numeric']);
+
+        $vehicleReservation = VehicleReservation::find($id);
+        $vehicleReservation->vehicle_driver_id = $payload['vehicle_driver_id'];
+        $vehicleReservation->approver_id = $payload['approver_id'];
+        $vehicleReservation->admin_id = auth('admin')->user()->id;
+        $vehicleReservation->save();
+
+        return redirect("/admin/vehicle-reservations/$id/process");
     }
 }
