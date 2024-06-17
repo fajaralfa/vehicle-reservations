@@ -68,6 +68,6 @@ class ProcessVehicleReservationController extends Controller
         $vehicleReservation->admin_id = auth('admin')->user()->id;
         $vehicleReservation->save();
 
-        return redirect("/admin/vehicle-reservations/$id/process");
+        return redirect("/admin/vehicle-reservations/$id");
     }
 }
