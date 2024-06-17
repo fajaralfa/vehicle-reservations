@@ -21,7 +21,7 @@
                 <td>{{ $item->approver?->name }}</td>
                 <td>{{ $item->vehicle->item_code }}</td>
                 <td>{{ $item->vehicleDriver?->name }}</td>
-                <td>{{ match($item->is_approved) { false => 'no', true => 'yes', null => 'pending' } }}</td>
+                <td>{{ match($item->is_approved) { 0 => 'no', 1 => 'yes', null => 'pending' } }}</td>
                 <td>{{ $item->approved_date ?? 'waiting' }}</td>
                 <td><a href="/employee/vehicle-reservations/{{ $item->id }}">Detail</a></td>
             </tr>
