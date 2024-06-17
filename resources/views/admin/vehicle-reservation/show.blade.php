@@ -66,7 +66,7 @@
         <div class="list-group-item">
             <div>
                 <span>Approved</span>
-                <span>{{ match($vehicleReservation->is_approved) { false => 'no', true => 'yes', null => 'pending' } }}</span>
+                <span>{{ match($vehicleReservation->is_approved) { 0 => 'no', 1 => 'yes', null => 'pending' } }}</span>
             </div>
         </div>
         <div class="list-group-item">
